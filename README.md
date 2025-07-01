@@ -76,6 +76,39 @@ The API supports the following operations:
 * POST /api/v1/videos/:video_id/comments: Create a new comment for a video (requires authentication).
 * POST /api/v1/comments/:comment_id/replies: Create a reply to an existing comment (requires authentication).
 
+### Emotions (Reactions)
+* GET /api/v1/videos/:video_id/emotions: Get emotion summary for a video.
+* POST /api/v1/videos/:video_id/emotions: Create or update emotion for a video (requires authentication).
+* DELETE /api/v1/videos/:video_id/emotions: Remove user's emotion from a video (requires authentication).
+* GET /api/v1/comments/:comment_id/emotions: Get emotion summary for a comment.
+* POST /api/v1/comments/:comment_id/emotions: Create or update emotion for a comment (requires authentication).
+* DELETE /api/v1/comments/:comment_id/emotions: Remove user's emotion from a comment (requires authentication).
+
+**Emotion Types**: `like`, `love`, `angry`, `dislike`
+
+**Example emotion creation:**
+```json
+POST /api/v1/videos/1/emotions
+{
+  "emotion": {
+    "kind": "like"
+  }
+}
+```
+
+**Emotion Response:**
+```json
+{
+  "emotions": {
+    "Like": 5,
+    "Love": 2,
+    "Angry": 1
+  },
+  "total": 8,
+  "user_emotion": "like"
+}
+```
+
 ### Authentication
 Most endpoints require authentication using JWT tokens. Include the token in the Authorization header:
 ```

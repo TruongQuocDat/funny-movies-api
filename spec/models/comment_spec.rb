@@ -32,6 +32,7 @@ RSpec.describe Comment, type: :model do
     it { should belong_to(:video) }
     it { should belong_to(:parent).class_name('Comment').optional }
     it { should have_many(:replies).class_name('Comment').with_foreign_key('parent_id').dependent(:destroy) }
+    it { should have_many(:emotions).dependent(:destroy) }
   end
 
   describe 'validations' do

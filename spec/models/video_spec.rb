@@ -25,6 +25,8 @@ require 'rails_helper'
 RSpec.describe Video, type: :model do
   describe 'associations' do
     it { should belong_to(:user) }
+    it { should have_many(:comments).dependent(:destroy) }
+    it { should have_many(:emotions).dependent(:destroy) }
   end
 
   describe 'validations' do
