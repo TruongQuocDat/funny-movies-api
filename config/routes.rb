@@ -15,9 +15,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :videos, only: %i[index create] do
         resources :comments, only: %i[index create]
+        resources :emotions, only: %i[index create destroy]
       end
       resources :comments, only: [] do
         post :replies, to: 'comments#create_reply'
+        resources :emotions, only: %i[index create destroy]
       end
     end
   end
