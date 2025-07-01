@@ -67,6 +67,19 @@ bundle exec rspec
 ## Usage
 The API supports the following operations:
 
+### Videos
 * POST /api/v1/videos: Submit a new funny movie link.
 * GET /api/v1/videos: Retrieve a list of all shared funny movies.
+
+### Comments
+* GET /api/v1/videos/:video_id/comments: Retrieve all comments for a specific video (includes nested replies).
+* POST /api/v1/videos/:video_id/comments: Create a new comment for a video (requires authentication).
+* POST /api/v1/comments/:comment_id/replies: Create a reply to an existing comment (requires authentication).
+
+### Authentication
+Most endpoints require authentication using JWT tokens. Include the token in the Authorization header:
+```
+Authorization: Bearer <your_jwt_token>
+```
+
 Use tools like Postman or curl to interact with the API endpoints.

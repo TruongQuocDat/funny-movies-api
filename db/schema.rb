@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_01_033126) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_01_055624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "video_id", null: false
+    t.bigint "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["video_id"], name: "index_comments_on_video_id"
+  end
 
   create_table "jwt_denylists", force: :cascade do |t|
     t.string "jti", null: false
@@ -45,5 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_01_033126) do
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "videos"
   add_foreign_key "videos", "users"
 end
