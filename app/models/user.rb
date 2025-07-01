@@ -27,7 +27,8 @@ class User < ApplicationRecord
          :jwt_authenticatable,
          jwt_revocation_strategy: JwtDenylist
 
-  has_many :videos
+  has_many :videos, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :name, presence: true
 

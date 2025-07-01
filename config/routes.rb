@@ -13,7 +13,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :videos, only: %i[index create]
+      resources :videos, only: %i[index create] do
+        resources :comments, only: %i[index create]
+      end
+      resources :comments, only: [] do
+        post :replies, to: 'comments#create_reply'
+      end
     end
   end
 
